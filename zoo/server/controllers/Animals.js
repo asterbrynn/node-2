@@ -17,5 +17,19 @@ let animals = [
 module.exports = {
 	get: (req, res) => {
 		res.send(animals);
+	},
+	create: (req, res) => {
+		let newAnimal = req.body;
+		newAnimal.id = id++;
+		animals.push(newAnimal);
+		res.send(animals);
+	},
+	update: (req, res) => {
+		let {id} = req.params;
+		let updatedAnimal = req.body;
+		updatedAnimal.id = id;
+		let index = animals.findIndex(a => +a.id === +id)
+		animals.splice(index, 1, updatedAnimal)
+		res.send(animals)
 	}
 }
